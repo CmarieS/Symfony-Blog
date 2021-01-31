@@ -5,12 +5,25 @@
 
 <h1>Bienvenue dans ce blog</h1>
 
-
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-Consequuntur deserunt earum autem voluptates reiciendis enim sapiente a omnis quaerat debitis sit animi totam vero temporibus ipsam, 
-quos blanditiis, aut ipsa, tempore nesciunt! Aspernatur voluptate labore ut beatae fugit maiores. Ex?</p>
-<p>Quo accusamus error ratione quas sapiente quos vel dolores aspernatur consequuntur neque nisi doloribus iusto molestiae 
-in repellendus voluptas aliquam, expedita voluptatibus dolorum. Ad cum, 
-libero a amet itaque voluptatibus enim explicabo iste totam non maiores sapiente perspiciatis vero in!</p>
+<div class="last_article">
+    <h2 class="title">Dernière Article</h2>
+    <article>
+        <h2>{{ article.title }}</h2>
+        <div class="metadata">
+            Ecrit le
+            {{article.createdAt | date('d/m/Y') }}
+            à
+            {{article.createdAt | date('H:i') }}
+            dans la Catégorie :
+            {{ article.category.title  }}</div>
+        <div class="content">
+            <img src="{{article.image}}" alt="">
+            <p>
+                {{article.content | raw }}
+            </p>
+            <a href="{{ path('show', {'id' : article.id}) }}" class="btn btn-primary">Lire la suite</a>
+        </div>
+    </article>
+</div>
 
 {% endblock %}

@@ -3,7 +3,9 @@
 {% block title %} Hello !{% endblock %}
 
 {% block body %}
-
+    <div class="top_pagination">
+        {{ knp_pagination_render(articles) }}
+    </div>
     {% for article in articles %}
         <article>
             <h2>{{ article.title }}</h2>
@@ -18,4 +20,7 @@
             </div>
         </article>
     {% endfor %}
+    <div class="back_pagination">
+        {{ knp_pagination_render(articles) }}
+    </div>
 {% endblock %}

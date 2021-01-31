@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ArticleRepository;
 use App\Form\ArticleType;
@@ -18,12 +19,17 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog", name="blog")
      */
-    public function index(ArticleRepository $repo): Response
+    public function index(ArticleRepository $repo, Request $request, PaginatorInterface $paginator): Response
     {
-        $articles = $repo->findAll();
+        $donnees = $repo->findAll();
+
+        $articles = $paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            6 // Nombre de résultats par page
+        );
 
         return $this->render('blog/index.html.twig', [
-            'controller_name' => 'BlogController',
             'articles' => $articles
         ]);
     }
@@ -31,8 +37,13 @@ class BlogController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home(){
-        return $this->render('blog/home.html.twig');
+    public function home(ArticleRepository $repo){
+
+        $articles = $repo->findBy(array(), array('id' => 'DESC'), 1, 0);
+
+        return $this->render('blog/home.html.twig' , [
+            'article' => $articles[0]
+        ]);
     }
 
     /**

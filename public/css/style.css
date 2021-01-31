@@ -1,0 +1,32 @@
+
+.nav_mobile
+{
+    display: block !important;
+}
+.last_article .title 
+{
+    text-align: center;
+}
+.top_pagination
+{
+    margin-top:2%;
+}
+.pagination
+{
+    margin-left:50% !important;
+}
+.pagination span
+{
+    border: 1px solid black;
+    width: 5%;
+    text-align: center;
+    padding-left: 2px;
+}
+.pagination span a 
+{
+    color:black !important;
+}
+.pagination span.current
+{
+    color:red !important;
+}
